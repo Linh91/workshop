@@ -56,6 +56,7 @@ class App extends Component {
     const creator = this.state.dataFromApi.creator_name 
       ? this.state.dataFromApi.creator_name.split(" ").join("")
       : null;
+  
     const workshops = this.state.normalizedData.workshops
       ? this.state.normalizedData.workshops[creator]
       : null;

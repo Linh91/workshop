@@ -33,4 +33,4 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Given more time I would like to add:
 - Improve on the UI
 - Implement Redux and store details in store
-
+- Make page more responsive 
