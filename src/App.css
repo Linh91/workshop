@@ -31,3 +31,23 @@
     transform: rotate(360deg);
   }
 }
+
+.Profile-image {
+  max-height: 300px;
+}
+
+.Lesson-container {
+  border-top: 1px grey solid;
+}
+
+.Profile-container {
+  margin-bottom: 16px;
+}
+
+.Heading {
+  margin-bottom: 16px;
+}
+
+.Subheading {
+  margin-bottom: 16px;
+}
