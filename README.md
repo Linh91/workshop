@@ -19,7 +19,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 - Data is pulled out of an APi
 - Data is normalized in a flat structure
-- Certain data can be referenced by creators name
+- Certain data can be referenced by id
 - Details of a creator and their workshop is displayed on page
 
 ### Creators profile with details

@@ -42,23 +42,28 @@ class App extends Component {
 
   normalizeDataFunc(data) {
     const normalizedData = {}
-    const name = data.creator_name.split(" ").join("");
+    const id = data.id;
+    const allIds = "allIds";
+    const byIds = "byId";
 
     normalizedData.creator = {};
-    normalizedData.creator[name] = data.creator_information;
+    normalizedData.creator[byIds] = {};
+    normalizedData.creator[allIds] = [];
+    normalizedData.creator[allIds].push(id);
+    normalizedData.creator[byIds][id] = data.creator_information;
     normalizedData.workshops = {};
-    normalizedData.workshops[name] = data.lessons;
+    normalizedData.workshops[byIds] = {};
+    normalizedData.workshops[allIds] = [];
+    normalizedData.workshops[allIds].push(id);
+    normalizedData.workshops[byIds][id] = data.lessons;
 
     return this.setState({normalizedData});
   }
 
   renderWorkShops() {
-    const creator = this.state.dataFromApi.creator_name 
-      ? this.state.dataFromApi.creator_name.split(" ").join("")
-      : null;
-  
+    const id = this.state.dataFromApi.id;
     const workshops = this.state.normalizedData.workshops
-      ? this.state.normalizedData.workshops[creator]
+      ? this.state.normalizedData.workshops.byId[id]
       : null;
 
     return workshops ? workshops.map(workshop => {
@@ -73,29 +78,30 @@ class App extends Component {
   }
 
   renderProfile() {
-    const creatorName = this.state.dataFromApi.creator_name 
-      ? this.state.dataFromApi.creator_name.split(" ").join("")
+    const id = this.state.dataFromApi.id;
+    const creator = this.state.normalizedData.creator.byId 
+      ? this.state.normalizedData.creator.byId[id]
       : null;
-  
-    return this.state.normalizedData.creator[creatorName] 
+
+    return creator 
       ? (
         <div className="Profile-container">
           <img 
-            src={this.state.normalizedData.creator[creatorName].profile_picture}
-            alt={this.state.normalizedData.creator[creatorName].name} className="Profile-image"/>
-          <p>Creator: {this.state.normalizedData.creator[creatorName].name}
+            src={creator.profile_picture}
+            alt={creator.name} className="Profile-image"/>
+          <p>Creator: {creator.name}
           </p>
-          <p>{this.state.normalizedData.creator[creatorName].introduction}</p>
-          <a href={this.state.normalizedData.creator[creatorName].instagram_url}>{this.state.normalizedData.creator[creatorName].instagram_url}</a><br/>
-          <a href={this.state.normalizedData.creator[creatorName].twitter_url}>{this.state.normalizedData.creator[creatorName].twitter_url}</a><br/>
-          <a href={this.state.normalizedData.creator[creatorName].url}>{this.state.normalizedData.creator[creatorName].url}</a><br/>
-          <a href={this.state.normalizedData.creator[creatorName].youtube_url}>{this.state.normalizedData.creator[creatorName].youtube_url}</a><br/>
+          <p>{creator.introduction}</p>
+          <a href={creator.instagram_url}>{creator.instagram_url}</a><br/>
+          <a href={creator.twitter_url}>{creator.twitter_url}</a><br/>
+          <a href={creator.url}>{creator.url}</a><br/>
+          <a href={creator.youtube_url}>{creator.youtube_url}</a><br/>
         </div>
     )
-      : null
+      : null;
   }
 
-  render () {
+  render () { 
 
     if (Object.entries(this.state.normalizedData).length === 0) {
       return null;
